@@ -1,4 +1,4 @@
-"""The data of Q_{1,int} and C(Q_{1,int}) printed after Theorem 1.1, in Section 4.1, in Appendix F (eq. (F.1)) and in Table 1, computed from the definitions (Appendix B, paragraph 'The data of Q_{1,int} and C(Q_{1,int})').
+"""The data of Q_{1,int} and C(Q_{1,int}) printed after Theorem 1.1, in Section 4.1, in Appendix F (eq. (F.1)) and in Table 2, computed from the definitions (Appendix B, paragraph 'The data of Q_{1,int} and C(Q_{1,int})').
 
 Q_{1,int} = K_1 Q_1 is built by carriers.carrier from Definition 4.2 and compared term by term with the display after Theorem 1.1, which is transcribed below; C(Q_{1,int}) is built by hec.superbalance from Definition 7.1. The pair coefficients a_uv and the singleton coefficients a_u are read off the coefficients of C, not from the Bell values.
 Usage: seventeen_party_data.py [--all]  (--all also prints a_uv for each of the 120 pairs)."""
@@ -11,7 +11,7 @@ from itertools import combinations
 from carriers import Params, carrier
 from hec import bell_matrix, superbalance
 
-# Table 1: class of pair -> (number of pairs, Bell value of Q_{1,int}, a_uv)
+# Table 2: class of pair -> (number of pairs, Bell value of Q_{1,int}, a_uv)
 TABLE = {
     "H, q_v": (5, 4, 2),
     "H, p_T": (10, 52, 26),
@@ -90,7 +90,7 @@ def main(show_all: bool) -> bool:
             auv = cq.get(frozenset([i, k]), Fraction(0))
             found[pair_class(names[i], names[k])].append((f"{names[i]} {names[k]}", b[i, k], auv))
             ok &= auv == b[i, k] / 2 > 0
-    print(f"{'pair class':28s} {'pairs':>5s} {'Bell':>6s} {'a_uv':>6s}   Table 1: pairs, Bell, a_uv")
+    print(f"{'pair class':28s} {'pairs':>5s} {'Bell':>6s} {'a_uv':>6s}   Table 2: pairs, Bell, a_uv")
     for cls, (cnt, bell, auv) in TABLE.items():
         got = found[cls]
         bells, auvs = {x[1] for x in got}, {x[2] for x in got}
@@ -104,7 +104,7 @@ def main(show_all: bool) -> bool:
     if show_all:
         for cls, got in found.items():
             print(cls + ": " + ", ".join(f"{p} {a}" for p, _, a in got))
-    print(("PASS" if ok else "FAIL") + ": the data of Q_1int and C(Q_1int) in Section 4.1, Appendix F and Table 1")
+    print(("PASS" if ok else "FAIL") + ": the data of Q_1int and C(Q_1int) in Section 4.1, Appendix F and Table 2")
     return ok
 
 
